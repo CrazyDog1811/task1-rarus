@@ -16,3 +16,15 @@ for($i=0;$i<strlen($expr);$i++) {
 if($count==0) "ok"
 else "mistake"
 ?>
+
+<?php
+
+$expr='6*(9+4)';
+
+// с помощью регулярных выражений ищем количество открывающих и закрывающих скобок
+$opBrackets=preq_match_all(/[(]/, $expr, $matches);
+$clBrackets=preq_match_all(/[)]/, $expr, $matches);
+
+//если количество не равное - ошибка
+$res=($opBracket==$clBracket)?'ok':'mistake';
+echo($res);
