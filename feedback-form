@@ -1,0 +1,37 @@
+<?php
+function check() {
+
+//проверяем наличие в запросе имени и телефона
+  if(isset($_POST['name']) && isset($_POST['tel'])) {
+    
+      //проверяем валидность email
+   $str=$_POST['email'];
+   $res=preg_match('/\w+@gmail\.com/', $str, $matches);
+   
+    //если совпало
+   if($res) {
+   return echo('incorrect email');
+     } else return echo('ok');  //если email в порядке
+     
+  } else return echo('enter your name or phonenumber'); // если не заполнено одно или оба поля
+  
+}
+
+check();
+
+?>
+
+<!doctype html>
+<html leng="en">
+ <head>....</head>
+ <body>
+  <form enctype="multipart/form-data" method="post" action="">
+   <textarea name="comment" placeholder="Your comment"></textarea>
+   <input type="text" name="name" placeholder="Your full name" required>
+   <input type="text" name="adress" placeholder="Enter Your adress">
+   <input type="email" name="email" placeholder="Enter Your email">
+   <input type="tel" name="tel" placeholder="Enter Your phonenumber" required>
+   <input type="file" name="file"
+   <input type="submit" name="send" value="send">
+  </form>
+ </body>
