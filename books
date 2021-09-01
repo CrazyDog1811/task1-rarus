@@ -27,9 +27,21 @@ CREATE TABLE IF NOT EXIST Genre (
  FOREIGN KEY (genre_id) REFERENCE Books(genre)
 )
 
-//скрипт который выводит название книги и ее авторов для жанра “Фантастика”
+    //скрипт который выводит название книги и ее авторов для жанра “Фантастика”
 SELECT Books.book_name, Authors.name, Authors.surname FROM Authors
 JOIN Authors_Books ON Authors.id=Authors_Books.author_id
 JOIN Books ON Books.id=Authors_Books.book_id
 JOIN Genre ON Books.genre=Genre.genre_id
 WHERE Genre.genre_name='fantastic'
+
+    //скрипт который выводит автора, который написал больше всего книг
+WITH a AS (
+SELECT author_id, COUNT(book_id) AS count FROM Authors_Books
+GROUP BY author_id
+)
+SELECT Authors.name, Authors.surname FROM Authors
+JOIN a ON Authors.id=a.author_id
+WHERE a.count IN(
+SELECT MAX(count) FROM a
+)
+
