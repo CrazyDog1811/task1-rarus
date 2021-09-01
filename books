@@ -1,0 +1,35 @@
+CREATE DATABASE IF NOT EXIST Books;
+USE Books;
+CREATE TABLE IF NOT EXIST Authors (
+ id INT PRIMARY KEY,
+ name VARCHAR(100) NOT NULL,
+ surname VARCHAR(100) NOT NULL
+)
+
+CREATE TABLE IF NOT EXIST Authors_Books (
+ book_id INT,
+ author_id INT,
+ FOREIGN KEY (book_id) REFERENCE Books(id),
+ FOREIGN KEY (author_id) REFERENCE Authors(id)
+)
+ 
+CREATE TABLE IF NOT EXIST Books (
+ id INT PRIMARY KEY,
+ book_name VARCHAR(255),
+ quantity_pages INT,
+ genre INT,
+ publication_date DATE
+)
+
+CREATE TABLE IF NOT EXIST Genre (
+ genre_id INT PRIMARY KEY,
+ genre_name VARCHAR(100),
+ FOREIGN KEY (genre_id) REFERENCE Books(genre)
+)
+
+//скрипт который выводит название книги и ее авторов для жанра “Фантастика”
+SELECT Books.book_name, Authors.name, Authors.surname FROM Authors
+JOIN Authors_Books ON Authors.id=Authors_Books.author_id
+JOIN Books ON Books.id=Authors_Books.book_id
+JOIN Genre ON Books.genre=Genre.genre_id
+WHERE Genre.genre_name='fantastic'
